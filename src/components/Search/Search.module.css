@@ -1,0 +1,23 @@
+.search_container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 30rem;
+    width: 100%;
+    margin: 1rem auto;
+}
+
+.search_inp {
+    flex: 1;
+    padding: 0.5rem;
+    border: 0.1rem solid #d1d5db;
+    border-radius: 0.3rem;
+    outline: none;
+    transition: all 0.2s;
+}
+  
+.search_inp:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0.25rem rgba(37, 99, 235, 0.5);
+}

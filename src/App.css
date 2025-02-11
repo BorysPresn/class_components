@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Высота на весь экран */
+  align-items: center;
+}
+
+header {
+  background-color: #2563eb; /* bg-blue-600 */
+  color: white; /* text-white */
+  padding: 1rem; /* p-4 */
+  text-align: center; /* text-center */
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: bold; /* font-bold */
+  border-radius: 0.3rem;
+  align-self: stretch;
+}
+
+.error-container {
+  text-align: center;
+  color: #ef4444; /* Красный цвет текста */
+  padding: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-btn {
+  background-color: #2563eb;
+}
+
+.search-btn:hover {
+  background-color: #1e40af; 
+}
+
+.reset-btn {
+  background-color: #6b7280; 
+}
+
+.reset-btn:hover {
+  background-color: #4b5563; 
+}
+
+.error-btn {
+  background-color: #ef4444; 
+}
+
+.error-btn:hover {
+  background-color: #dc2626; 
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.card {
+  border: 0.1rem solid #ddd;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.pagination-button {
+  padding: 0.5rem 1rem;
+  background-color: #d1d5db; 
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.main-content {
+  flex: 1; 
+}
+
+.pagination {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
