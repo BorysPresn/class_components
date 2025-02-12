@@ -20,6 +20,6 @@ const Results: React.FC<ResultsProps> = (props) => {
   if (error) return <p>Error: {error}</p>;
   if (results.length === 0) return <p>No results found</p>;
   return <CardList results={results} />;
-}
+};
 
 export default Results;

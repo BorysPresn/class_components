@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ErrorButton: React.FC = () => {
-  const [ state, setState ] = useState(false)
+  const [state, setState] = useState(false);
 
   const handleClick = () => {
     setState(true);
@@ -16,6 +16,6 @@ const ErrorButton: React.FC = () => {
       Throw Error
     </button>
   );
-}
+};
 
 export default ErrorButton;

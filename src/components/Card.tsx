@@ -8,7 +8,13 @@ type CardProps = {
   gender: string;
 };
 
-const Card: React.FC<CardProps> = ({name, height, mass, birth_year, gender}) => {
+const Card: React.FC<CardProps> = ({
+  name,
+  height,
+  mass,
+  birth_year,
+  gender,
+}) => {
   return (
     <div className="card">
       <h3 className="card-title">{name}</h3>
@@ -18,6 +24,6 @@ const Card: React.FC<CardProps> = ({name, height, mass, birth_year, gender}) => 
       <p>Gender: {gender}</p>
     </div>
   );
-}
+};
 
 export default Card;

@@ -23,21 +23,23 @@ interface State {
   totalPages: number;
 }
 
-
 const App: React.FC = () => {
-  const [ state, setState ] = useState<State>({
+  const [state, setState] = useState<State>({
     searchTerm: '',
     isLoading: false,
     error: null,
     results: [],
     currentPage: 1,
     totalPages: 1,
-  })
+  });
 
-  useEffect(() =>{
+  useEffect(() => {
     const savedResults = localStorage.getItem('swapiResults');
     if (savedResults) {
-      setState((prevState) => ({ ...prevState, results: JSON.parse(savedResults) }));
+      setState((prevState) => ({
+        ...prevState,
+        results: JSON.parse(savedResults),
+      }));
     }
   }, []);
 
@@ -54,7 +56,7 @@ const App: React.FC = () => {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
 
-      setState((prevState) =>({
+      setState((prevState) => ({
         ...prevState,
         results: data.results,
         totalPages: Math.ceil(data.count / 10),
@@ -63,9 +65,12 @@ const App: React.FC = () => {
 
       localStorage.setItem('swapiResults', JSON.stringify(data.results));
     } catch (error) {
-      setState((prevState) => ({ ...prevState,error: (error as Error).message }));
+      setState((prevState) => ({
+        ...prevState,
+        error: (error as Error).message,
+      }));
     } finally {
-      setState((prevState) => ({ ...prevState,isLoading: false }));
+      setState((prevState) => ({ ...prevState, isLoading: false }));
     }
   };
 
@@ -104,17 +109,15 @@ const App: React.FC = () => {
       />
     </ErrorBoundary>
   );
-}
+};
 
 export default App;
 
-
-
 //   render() {
 //     return (
-      
+
 //     );
 //   }
 // }
 
-// 
+//

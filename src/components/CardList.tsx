@@ -20,6 +20,6 @@ const CardList: React.FC<CardListProps> = (props) => {
       ))}
     </div>
   );
-}
+};
 
 export default CardList;

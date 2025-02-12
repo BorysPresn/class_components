@@ -7,6 +7,6 @@ const Spinner: React.FC = () => {
       <div className={cl.spinner}></div>
     </div>
   );
-}
+};
 
 export default Spinner;

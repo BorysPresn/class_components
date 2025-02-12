@@ -10,8 +10,8 @@ interface SearchState {
   searchTerm: string;
 }
 
-const Search: React.FC<SearchProps> = ( props ) => {
-  const [ state, setState ] = useState<SearchState>({searchTerm: ''})
+const Search: React.FC<SearchProps> = (props) => {
+  const [state, setState] = useState<SearchState>({ searchTerm: '' });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({ searchTerm: event.target.value });
@@ -41,6 +41,6 @@ const Search: React.FC<SearchProps> = ( props ) => {
       </button>
     </div>
   );
-}
+};
 
 export default Search;
