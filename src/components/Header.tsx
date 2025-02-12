@@ -1,9 +1,7 @@
-import { Component } from 'react';
+import React from 'react';
 
-class Header extends Component {
-  render() {
-    return <header>Star Wars Character Search</header>;
-  }
+const Header: React.FC = () => {
+  return <header>Star Wars Character Search</header>;
 }
 
 export default Header;

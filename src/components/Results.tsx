@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import CardList from './CardList';
 import Spinner from './Spinner/Spinner';
 
@@ -14,16 +14,12 @@ interface ResultsProps {
   isLoading: boolean;
 }
 
-class Results extends Component<ResultsProps> {
-  render() {
-    const { results, error, isLoading } = this.props;
-
-    if (isLoading) return <Spinner />;
-    if (error) return <p>Error: {error}</p>;
-    if (results.length === 0) return <p>No results found</p>;
-
-    return <CardList results={results} />;
-  }
+const Results: React.FC<ResultsProps> = (props) => {
+  const { results, error, isLoading } = props;
+  if (isLoading) return <Spinner />;
+  if (error) return <p>Error: {error}</p>;
+  if (results.length === 0) return <p>No results found</p>;
+  return <CardList results={results} />;
 }
 
 export default Results;

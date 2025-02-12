@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import cl from './Search.module.css';
 
 interface SearchProps {
@@ -10,41 +10,37 @@ interface SearchState {
   searchTerm: string;
 }
 
-class Search extends Component<SearchProps, SearchState> {
-  state = {
-    searchTerm: '',
+const Search: React.FC<SearchProps> = ( props ) => {
+  const [ state, setState ] = useState<SearchState>({searchTerm: ''})
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({ searchTerm: event.target.value });
   };
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
-  };
-
-  handleSearch = () => {
-    const trimmedSearchTerm = this.state.searchTerm.trim();
+  const handleSearch = () => {
+    const trimmedSearchTerm = state.searchTerm.trim();
     if (trimmedSearchTerm) {
-      this.props.fetchData(trimmedSearchTerm);
+      props.fetchData(trimmedSearchTerm);
     }
   };
 
-  render() {
-    return (
-      <div className={cl.search_container}>
-        <input
-          className={cl.search_inp}
-          type="text"
-          placeholder="Search..."
-          value={this.state.searchTerm}
-          onChange={this.handleInputChange}
-        />
-        <button className="button search-btn" onClick={this.handleSearch}>
-          Search
-        </button>
-        <button className="button reset-btn" onClick={this.props.clearResults}>
-          Clear
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className={cl.search_container}>
+      <input
+        className={cl.search_inp}
+        type="text"
+        placeholder="Search..."
+        value={state.searchTerm}
+        onChange={handleInputChange}
+      />
+      <button className="button search-btn" onClick={handleSearch}>
+        Search
+      </button>
+      <button className="button reset-btn" onClick={props.clearResults}>
+        Clear
+      </button>
+    </div>
+  );
 }
 
 export default Search;

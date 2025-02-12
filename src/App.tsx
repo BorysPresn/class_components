@@ -1,10 +1,10 @@
-import { Component } from 'react';
 import Search from './components/Search/Search';
 import Results from './components/Results';
 import Header from './components/Header';
 import Pagination from './components/Pagination';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
+import { useEffect, useState } from 'react';
 
 type Character = {
   name: string;
@@ -23,35 +23,26 @@ interface State {
   totalPages: number;
 }
 
-class App extends Component<object, State> {
-  state = {
+
+const App: React.FC = () => {
+  const [ state, setState ] = useState<State>({
     searchTerm: '',
     isLoading: false,
     error: null,
     results: [],
     currentPage: 1,
     totalPages: 1,
-  };
+  })
 
-  componentDidMount() {
+  useEffect(() =>{
     const savedResults = localStorage.getItem('swapiResults');
     if (savedResults) {
-      this.setState({ results: JSON.parse(savedResults) });
+      setState((prevState) => ({ ...prevState, results: JSON.parse(savedResults) }));
     }
-  }
+  }, []);
 
-  clearResults = () => {
-    localStorage.removeItem('swapiResults');
-    this.setState({
-      results: [],
-      searchTerm: '',
-      currentPage: 1,
-      totalPages: 1,
-    });
-  };
-
-  fetchData = async (searchTerm: string, page: number = 1) => {
-    this.setState({ isLoading: true, error: null });
+  const fetchData = async (searchTerm: string, page: number = 1) => {
+    setState((prevState) => ({ ...prevState, isLoading: true, error: null }));
 
     try {
       const response = await fetch(
@@ -63,46 +54,67 @@ class App extends Component<object, State> {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
 
-      this.setState({
+      setState((prevState) =>({
+        ...prevState,
         results: data.results,
         totalPages: Math.ceil(data.count / 10),
         currentPage: page,
-      });
+      }));
 
       localStorage.setItem('swapiResults', JSON.stringify(data.results));
     } catch (error) {
-      this.setState({ error: (error as Error).message });
+      setState((prevState) => ({ ...prevState,error: (error as Error).message }));
     } finally {
-      this.setState({ isLoading: false });
+      setState((prevState) => ({ ...prevState,isLoading: false }));
     }
   };
 
-  handlePageChange = (newPage: number) => {
-    this.fetchData(this.state.searchTerm, newPage);
+  const clearResults = () => {
+    localStorage.removeItem('swapiResults');
+    setState((prevState) => ({
+      ...prevState,
+      results: [],
+      searchTerm: '',
+      currentPage: 1,
+      totalPages: 1,
+    }));
   };
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <Header />
-        <Search fetchData={this.fetchData} clearResults={this.clearResults} />
-        <ErrorButton />
-        <div className="main-content">
-          <Results
-            results={this.state.results}
-            error={this.state.error}
-            isLoading={this.state.isLoading}
-          />
-        </div>
-        <Pagination
-          className="pagination"
-          currentPage={this.state.currentPage}
-          totalPages={this.state.totalPages}
-          onPageChange={this.handlePageChange}
+  const handlePageChange = (newPage: number) => {
+    fetchData(state.searchTerm, newPage);
+  };
+
+  return (
+    <ErrorBoundary>
+      <Header />
+      <Search fetchData={fetchData} clearResults={clearResults} />
+      <ErrorButton />
+      <div className="main-content">
+        <Results
+          results={state.results}
+          error={state.error}
+          isLoading={state.isLoading}
         />
-      </ErrorBoundary>
-    );
-  }
+      </div>
+      <Pagination
+        className="pagination"
+        currentPage={state.currentPage}
+        totalPages={state.totalPages}
+        onPageChange={handlePageChange}
+      />
+    </ErrorBoundary>
+  );
 }
 
 export default App;
+
+
+
+//   render() {
+//     return (
+      
+//     );
+//   }
+// }
+
+// 

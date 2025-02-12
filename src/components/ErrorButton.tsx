@@ -1,23 +1,21 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 
-class ErrorButton extends Component {
-  state = { throwError: false };
+const ErrorButton: React.FC = () => {
+  const [ state, setState ] = useState(false)
 
-  handleClick = () => {
-    this.setState({ throwError: true });
+  const handleClick = () => {
+    setState(true);
   };
 
-  render() {
-    if (this.state.throwError) {
-      throw new Error('Test error');
-    }
-
-    return (
-      <button className="button error-btn" onClick={this.handleClick}>
-        Throw Error
-      </button>
-    );
+  if (state) {
+    throw new Error('Test error');
   }
+
+  return (
+    <button className="button error-btn" onClick={handleClick}>
+      Throw Error
+    </button>
+  );
 }
 
 export default ErrorButton;

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import Card from './Card';
 
 type CardListProps = {
@@ -11,17 +11,15 @@ type CardListProps = {
   }[];
 };
 
-class CardList extends Component<CardListProps> {
-  render() {
-    const { results } = this.props;
-    return (
-      <div className="grid-container">
-        {results.map((character) => (
-          <Card key={character.name} {...character} />
-        ))}
-      </div>
-    );
-  }
+const CardList: React.FC<CardListProps> = (props) => {
+  const { results } = props;
+  return (
+    <div className="grid-container">
+      {results.map((character) => (
+        <Card key={character.name} {...character} />
+      ))}
+    </div>
+  );
 }
 
 export default CardList;
